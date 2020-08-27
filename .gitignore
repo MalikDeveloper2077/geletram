@@ -1,0 +1,12 @@
+# Python
+env/
+__pycache__/
+
+# Django
+migrations/
+media/
+db.sqlite3
+.DS_Store
+
+# Node.js
+node_modules/
