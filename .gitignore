@@ -1,3 +1,7 @@
+# Code editors
+.idea/
+.vscode/
+
 # Python
 env/
 __pycache__/
