@@ -6,12 +6,16 @@
 </template>
 
 <script>
-import { authFetch } from '@/utils/auth_fetch';
+// import { authFetch } from '@/utils/auth_fetch';
 
 export default {
   name: 'Home',
   async mounted() {
-    // const resp = await authFetch(`${this.$store.getters.serverUrl}/users`, null, this.$store.commit);
+    // const resp = await authFetch(
+    //  `${this.$store.getters.serverUrl}/users`,
+    //  null,
+    //  this.$store.commit
+    // );
     // console.log(resp);
   },
 };

@@ -17,6 +17,19 @@ export default {
     },
   },
   actions: {
+    async authUser({ dispatch, commit }, userData) {
+      // userData is username and password
+      let tokens;
+      try {
+        tokens = await dispatch('fetchTokens', userData);
+      } catch (e) {
+        throw new Error('Authorization error: can\'t log in');
+      }
+
+      commit('setTokens', tokens);
+      commit('setUserInfo', userData);
+      saveToLocalStorage(tokens);
+    },
     async createUser({ dispatch, commit, getters }, userData) {
       const response = await fetch(`${getters.serverUrl}/users/`, {
         method: 'POST',
@@ -32,7 +45,7 @@ export default {
       }
 
       commit('setUserInfo', {
-        ...responseJson,
+        username: responseJson.username,
         password: userData.password,
       });
 
@@ -56,6 +69,7 @@ export default {
       const tokens = await response.json();
       if (!response.ok) {
         handleError(tokens, commit);
+        throw new Error('Authorization error: can\'t get tokens for log in');
       }
 
       return tokens;

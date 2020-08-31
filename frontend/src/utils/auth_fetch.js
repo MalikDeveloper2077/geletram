@@ -1,6 +1,5 @@
 /* eslint-disable */
 import saveToLocalStorage from '@/utils/localstorage_tokens';
-import auth from '@/store/auth';
 
 const decodeJwt = (token) => {
   const base64Url = token.split('.')[1];

@@ -30,10 +30,10 @@ import SignupForm from '@/components/SignupForm.vue';
 import SigninForm from '@/components/SigninForm.vue';
 
 export default {
-  name: 'Signup',
+  name: 'Auth',
   data() {
     return {
-      signup: true,
+      signup: false,
     };
   },
   components: {

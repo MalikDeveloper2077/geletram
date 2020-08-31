@@ -79,11 +79,12 @@ export default {
 
       try {
         await this.$store.dispatch('createUser', userData);
-        this.$toast.success('You\'ve successfully signed up!');
-        this.$router.push({ name: 'Home' });
       } catch (e) {
-        // pass
+        return;
       }
+
+      this.$toast.success('You\'ve successfully signed up!');
+      this.$router.push({ name: 'Home' });
     },
   },
   computed: {
