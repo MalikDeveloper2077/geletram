@@ -12,5 +12,6 @@ media/
 db.sqlite3
 .DS_Store
 
-# Node.js
+# JS
 node_modules/
+.eslintrc.json

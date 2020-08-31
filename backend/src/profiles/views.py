@@ -1,5 +1,4 @@
 from django.contrib.auth import get_user_model
-from django.contrib.auth import login
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.viewsets import ModelViewSet
 
@@ -23,13 +22,12 @@ class UserViewSet(ModelViewSet):
 
     @attribute_error_handler([IsAuthenticated()])
     def get_permissions(self):
+        """If there's no a match method, .permissions will raise
+        AttributeError, then the decorator attribute will be returned
+        """
         permissions = match_rest_method(self.rest_methods, self.action).permissions
         return [permission() for permission in permissions]
 
     @attribute_error_handler(UserSerializer)
     def get_serializer_class(self):
         return match_rest_method(self.rest_methods, self.action).serializer
-
-    def perform_create(self, serializer):
-        user = serializer.save()
-        login(self.request, user)

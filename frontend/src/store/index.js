@@ -18,7 +18,6 @@ export default new Vuex.Store({
       state.error = null;
     },
   },
-  actions: {},
   modules: { auth, userInfo },
   getters: {
     serverUrl(state) {
