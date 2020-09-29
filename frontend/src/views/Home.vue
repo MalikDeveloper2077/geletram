@@ -1,29 +1,44 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <h1 class="text-center mt-3">Vue App</h1>
+    <Navbar>
+      <template v-slot:centerHeading v-if="selectedChat">
+        <img :src="selectedChat.avatar" class="profile__img">
+
+        <span class="ml-3">
+          <b>{{ selectedChat.name }}</b>
+        </span>
+      </template>
+    </Navbar>
+
+    <ChatList v-if="sidebar" />
+
+    <v-container>
+    </v-container>
   </div>
 </template>
 
 <script>
-// import { authFetch } from '@/utils/auth_fetch';
+import { mapGetters } from 'vuex';
+import ChatList from '@/components/ChatList.vue';
+import Navbar from '@/components/app/Navbar.vue';
 
 export default {
   name: 'Home',
-  async mounted() {
-    // const resp = await authFetch(
-    //  `${this.$store.getters.serverUrl}/users`,
-    //  null,
-    //  this.$store.commit
-    // );
-    // console.log(resp);
+  computed: {
+    ...mapGetters(['sidebar', 'selectedChat']),
+  },
+  components: {
+    ChatList,
+    Navbar,
   },
 };
 </script>
 
-<style scoped>
-  img {
-    margin: 0 auto;
-    display: block;
-  }
+<style>
+.profile__img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+}
 </style>

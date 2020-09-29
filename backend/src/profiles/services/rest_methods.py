@@ -2,12 +2,12 @@ class RESTMethod:
     """Contains special properties for handling a
     REST method like name, serializer, and permissions
     """
-    def __init__(self, name, serializer, permissions):
+    def __init__(self, name: str, serializer: object, permissions):
         self.name = name
         self.serializer = serializer
         self.permissions = permissions
 
-    def is_matching(self, action_name):
+    def is_matching(self, action_name: str):
         """Return if the method is the same as the given"""
         if action_name == self.name:
             return True

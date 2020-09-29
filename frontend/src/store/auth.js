@@ -1,5 +1,5 @@
-import handleError from '@/utils/response_errors.handler';
-import saveToLocalStorage from '@/utils/localstorage_tokens';
+import handleError from '@/utils/response-errors.handler';
+import saveToLocalStorage from '@/utils/localstorage-tokens';
 
 export default {
   state: {
@@ -17,8 +17,9 @@ export default {
     },
   },
   actions: {
-    async authUser({ dispatch, commit }, userData) {
-      // userData is username and password
+    async authUser({ dispatch, commit }, { username, password }) {
+      const userData = { username, password };
+
       let tokens;
       try {
         tokens = await dispatch('fetchTokens', userData);

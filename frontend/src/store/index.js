@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import auth from './auth';
-import userInfo from './user_info';
+import userInfo from './user-info';
+import chat from './chat';
 
 Vue.use(Vuex);
 
@@ -18,7 +19,7 @@ export default new Vuex.Store({
       state.error = null;
     },
   },
-  modules: { auth, userInfo },
+  modules: { auth, userInfo, chat },
   getters: {
     serverUrl(state) {
       return state.serverUrl;
