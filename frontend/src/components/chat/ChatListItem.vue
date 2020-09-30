@@ -32,7 +32,8 @@ export default {
     },
   },
   methods: {
-    selectChat(person) {
+    selectChat({ id, name, avatar }) {
+      const person = { id, name, avatar };
       if (person !== this.selectedChat) {
         this.$store.dispatch('selectChat', person);
       }

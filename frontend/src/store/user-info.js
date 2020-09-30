@@ -1,6 +1,10 @@
 export default {
   state: {
-    userInfo: null,
+    userInfo: {
+      id: 1,
+      name: 'Kalik Mamado',
+      avatar: 'https://bit.ly/3iVFcXV',
+    },
   },
   mutations: {
     setUserInfo(state, info) {

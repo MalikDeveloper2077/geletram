@@ -27,16 +27,31 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import ChatListItem from '@/components/ChatListItem.vue';
+import ChatListItem from '@/components/chat/ChatListItem.vue';
 
 export default {
   name: 'Sidebar',
   data() {
     return {
       persons: [
-        { name: 'Kamina', avatar: 'https://bit.ly/32Sig6e', online: true },
-        { name: 'Simon', avatar: 'https://bit.ly/32UiHwC', online: false },
-        { name: 'Megumin', avatar: 'https://bit.ly/3iVFcXV', online: true },
+        {
+          id: 2,
+          name: 'Kamina',
+          avatar: 'https://bit.ly/32Sig6e',
+          online: true,
+        },
+        {
+          id: 3,
+          name: 'Simon',
+          avatar: 'https://bit.ly/32UiHwC',
+          online: false,
+        },
+        {
+          id: 4,
+          name: 'Megumin',
+          avatar: 'https://bit.ly/3iVFcXV',
+          online: true,
+        },
       ],
     };
   },
