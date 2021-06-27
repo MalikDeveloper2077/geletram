@@ -19,7 +19,11 @@ export default new Vuex.Store({
       state.error = null;
     },
   },
-  modules: { auth, userInfo, chat },
+  modules: {
+    auth,
+    userInfo,
+    chat,
+  },
   getters: {
     serverUrl(state) {
       return state.serverUrl;

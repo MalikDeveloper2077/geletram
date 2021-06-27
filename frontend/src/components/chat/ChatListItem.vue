@@ -1,9 +1,9 @@
 <template>
-  <v-list-item @click="selectChat(person)">
+  <v-list-item @click="selectChat">
     <v-list-item-avatar>
-      <img :src="person.avatar" class="profile__img">
+      <img :src="chat.avatar" class="profile__img">
       <v-badge
-        v-if="person.online"
+        v-show="chat.online"
         bottom
         offset-x="8"
         offset-y="-5"
@@ -14,9 +14,13 @@
 
     <v-list-item-content class="ml-1">
       <v-list-item-title>
-        {{ person.name }}
+        {{ chat.name }}
       </v-list-item-title>
     </v-list-item-content>
+
+    <v-list-item-icon v-if="chat.pinned">
+      <v-icon small>mdi-pin</v-icon>
+    </v-list-item-icon>
   </v-list-item>
 </template>
 
@@ -26,17 +30,21 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'ChatListItem',
   props: {
-    person: {
+    chat: {
       type: Object,
       required: true,
     },
   },
   methods: {
-    selectChat({ id, name, avatar }) {
-      const person = { id, name, avatar };
-      if (person !== this.selectedChat) {
-        this.$store.dispatch('selectChat', person);
+    selectChat() {
+      if (this.selectedChat) {
+        // If selected chat is current chat, return
+        if (this.chat.id === this.selectedChat.id) {
+          return;
+        }
       }
+
+      this.$store.dispatch('selectChat', this.chat);
     },
   },
   computed: {
@@ -57,5 +65,9 @@ export default {
   height: 30px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.v-list-item__icon {
+  margin: 20px 0 !important;
 }
 </style>

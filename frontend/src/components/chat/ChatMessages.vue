@@ -1,12 +1,7 @@
 <template>
   <div>
-    <div
-      v-for="message in messages"
-      :key="message.timestamp"
-    >
-      <ChatMessage :message="message" />
-      <br>
-    </div>
+    <ChatMessage v-for="message in messages"
+      :key="message.timestamp" :message="message" />
   </div>
 </template>
 

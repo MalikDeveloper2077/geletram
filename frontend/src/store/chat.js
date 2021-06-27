@@ -10,8 +10,8 @@ export default {
     hideSidebar(state) {
       state.sidebar = false;
     },
-    setSelectedChat(state, person) {
-      state.selectedChat = person;
+    setSelectedChat(state, chat) {
+      state.selectedChat = chat;
     },
   },
   actions: {

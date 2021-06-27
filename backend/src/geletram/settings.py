@@ -24,10 +24,12 @@ INSTALLED_APPS = [
 
     # My apps
     'profiles.apps.ProfilesConfig',
+    'chat.apps.ChatConfig',
 
     # Third party
     'rest_framework',
     'corsheaders',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -84,6 +86,16 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'geletram.wsgi.application'
+ASGI_APPLICATION = "geletram.routing.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 DATABASES = {
@@ -122,3 +134,9 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    BASE_DIR / 'static',
+)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'

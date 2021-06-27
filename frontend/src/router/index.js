@@ -7,6 +7,13 @@ const routes = [
   {
     path: '/',
     name: 'Home',
+    meta: { auth: true },
+    component: () => import('../views/Home.vue'),
+  },
+  {
+    path: '/chat/:id',
+    name: 'Chat',
+    meta: { auth: true },
     component: () => import('../views/Home.vue'),
   },
   {

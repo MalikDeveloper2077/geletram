@@ -14,16 +14,24 @@
 
     <ChatList v-if="sidebar" />
 
-    <v-container class="p-0 mx-0 chat-main">
+    <v-container class="p-0 mx-0 chat-main" v-if="showChat">
       <ChatMessages :messages="messages" />
       <ChatActionsPanel />
 
-      <v-text-field
-        class="chat-main__input-send"
-        placeholder="Enter a message"
-        append-outer-icon="mdi-send"
-      ></v-text-field>
+      <v-form @submit.prevent="sendMessage">
+        <v-text-field
+          v-model="messageText"
+          class="chat-main__input-send"
+          placeholder="Enter a message"
+          append-outer-icon="mdi-send"
+          @click:append-outer="sendMessage"
+        ></v-text-field>
+      </v-form>
     </v-container>
+
+    <div v-else class="d-flex justify-center align-center text-center">
+      <h5 class="grey--text text--darken-2 text-uppercase">Start a chat ✍🏻</h5><br>
+    </div>
   </div>
 </template>
 
@@ -38,6 +46,8 @@ export default {
   name: 'Home',
   data() {
     return {
+      messageText: '',
+      chatSocket: null,
       messages: [
         {
           author: {
@@ -73,8 +83,58 @@ export default {
       ],
     };
   },
+  methods: {
+    sendMessage() {
+      if (!this.messageText) {
+        return;
+      }
+
+      this.chatSocket.send(JSON.stringify({
+        message: this.messageText,
+        author: this.userInfo,
+      }));
+
+      this.messageText = '';
+    },
+    createChatSocket() {
+      const chatId = this.selectedChat.id;
+
+      this.chatSocket = new WebSocket(
+        `ws://${window.location.hostname}:8000/ws/chat/${chatId}/`,
+      );
+
+      this.chatSocket.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+
+        this.messages.push({
+          author: data.author,
+          timestamp: '20:54',
+          text: data.message,
+        });
+      };
+
+      this.chatSocket.onclose = () => {
+        console.error('Chat socket closed unexpectedly');
+      };
+    },
+  },
   computed: {
-    ...mapGetters(['sidebar', 'selectedChat']),
+    ...mapGetters(['sidebar', 'selectedChat', 'userChats', 'userInfo']),
+    showChat() {
+      return this.selectedChat;
+    },
+  },
+  watch: {
+    selectedChat(val) {
+      if (val) {
+        this.createChatSocket();
+
+        this.$router.push({
+          name: 'Chat',
+          params: { id: this.selectedChat.id },
+        });
+      }
+    },
   },
   components: {
     Navbar,
